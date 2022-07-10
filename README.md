@@ -44,6 +44,7 @@ cfdisk /dev/sda
   </tr>
 </table>
 Linux swap 大小的議題可參考
+[archlinux iso](http://mirror.archlinux.tw/ArchLinux/iso/2022.05.01/)
 [這裏](https://itsfoss.com/swap-size/)
 
 ## 格式化磁區
