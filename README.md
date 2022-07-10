@@ -43,6 +43,33 @@ cfdisk /dev/sda
     <td>Linux Home</td>
   </tr>
 </table>
+Linux swap 大小的議題可參考[這裏](https://itsfoss.com/swap-size/)
+
+## 格式化磁區
+```
+# EFI partion
+mkfs.vfat /dev/sda1
+
+# swap
+mkswap /dev/sda2
+
+# root、home
+mkfs.ext4 /dev/sda3
+mkfs.ext4 /dev/sda4
+```
+
+## 挂載磁區
+```
+# 將root mount 到 /mnt
+mount /dev/sda3 /mnt
+mkdir /mnt/boot 
+# 將boot mount 到 /mnt/boot
+mount /dev/sda1 /mnt/boot
+mkdir /mnt/home
+# 將home mount 到 /mnt/home
+mount /dev/sda4 /mnt/home
+```
+
 
 # 系统配置
 
