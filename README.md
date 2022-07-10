@@ -150,6 +150,7 @@ ping -c 3 8.8.8.8
 更多網路詳情可參考 https://wiki.archlinux.org/title/Network_configuration
 
 ## 1.5 設定 Mirrors Server
+### 1.5.1 加入 mirrorlist
 用vim /etc/pacman.conf編輯conf文件將,找到[core] [extra] [community]將交大的arch mirrorlist加入
 ```
 [core]
@@ -164,10 +165,20 @@ Include = /etc/pacman.d/mirrorlist
 Server = http://archlinux.cs.nctu.edu.tw/$repo/os/$arch
 Include = /etc/pacman.d/mirrorlist
 ```
-排序鏡像站  
+### 1.5.2 排序鏡像站  
 安裝pacman-contrib腳本，這個腳本可以排序鏡像站
-
-
+```
+pacman -S pacman-contrib
+```
+排序"設定檔現有的"鏡像站前6快，並寫入檔案
+```
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+```
+將英國和法國前5快的鏡像站，添加至鏡像列表中
+```
+curl -s "https://archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - >> /etc/pacman.d/mirrorlist
+```
 
 
 # 系统配置
