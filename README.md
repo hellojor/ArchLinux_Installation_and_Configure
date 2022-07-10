@@ -112,12 +112,12 @@ IP是 `198.111.121.3`
 子網路遮罩是 `255.255.255.0`  
 route server是 `198.111.121.250`    
   
-2. 設定網路卡實體位址
+### 2. 設定網路卡實體位址
 ```
 ip link set address ff:74:77:69:12:ab dev enp7s0
 ```
 
-3. 清除網路卡的IP設定
+### 3. 清除網路卡的IP設定
 ```
 ip addr flush dev enp7s0
 ```
@@ -145,7 +145,28 @@ ip route add default via 198.111.121.250 dev enp7s0
 ```
 ping -c 3 8.8.8.8
 ```
-正常來説應該沒問題了
+正常來説應該沒問題了  
+更多網路詳情可參考 https://wiki.archlinux.org/title/Network_configuration
+
+## 設定 Mirrors Server
+用vim /etc/pacman.conf編輯conf文件將,找到[core] [extra] [community]將交大的arch mirrorlist加入
+```
+[core]
+Server = http://archlinux.cs.nctu.edu.tw/$repo/os/$arch
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Server = http://archlinux.cs.nctu.edu.tw/$repo/os/$arch
+Include = /etc/pacman.d/mirrorlist
+
+[community]
+Server = http://archlinux.cs.nctu.edu.tw/$repo/os/$arch
+Include = /etc/pacman.d/mirrorlist
+```
+排序鏡像站  
+安裝pacman-contrib腳本，這個腳本可以排序鏡像站
+
+
 
 
 # 系统配置
