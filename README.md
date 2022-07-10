@@ -1,15 +1,16 @@
 # ArchLinux_Installation_and_Configure
 
-## 下載Arch ISO
+# 下載Arch ISO
 [archlinux iso](http://mirror.archlinux.tw/ArchLinux/iso/2022.05.01/)
 
-# 安裝 Arch Linux
+# 1 安裝 Arch Linux
 
-## 分割硬碟
-查找所有硬碟
+## 1.1 分割硬碟
+### 1.1.1 查找所有硬碟
 ```
 lsblk
 ```
+### 1.1.2 分配與切割磁碟
 選擇要安裝系統的硬碟後使用以下指令分割硬碟的磁區  
 假設安裝在`sda`這個硬碟上
 ```
@@ -45,7 +46,7 @@ cfdisk /dev/sda
 </table>
 Linux swap 大小的議題可參考以下鏈接 https://itsfoss.com/swap-size/
 
-## 格式化磁區
+## 1.2 格式化磁區
 ```
 # EFI partion
 mkfs.vfat /dev/sda1
@@ -58,7 +59,7 @@ mkfs.ext4 /dev/sda3
 mkfs.ext4 /dev/sda4
 ```
 
-## 挂載磁區
+## 1.3 挂載磁區
 ```
 # 將root mount 到 /mnt
 mount /dev/sda3 /mnt
@@ -78,7 +79,7 @@ blkid /dev/sdXX
 df -h
 ```
 
-## 網絡連接
+## 1.4 網絡連接
 在這個之前，如果你是使用dhcp 或者 wifi的  
 可以先ping Google所提供的DNS伺服器IP位址看看是否已經連接
 ```
@@ -95,7 +96,7 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 ```
 如果沒有，説明你可能是使用固定IP，請跟著以下步驟
-1. 檢查網路卡
+### 1.4.1 檢查網路卡
 ```
 ip link show
 ```
@@ -112,23 +113,23 @@ IP是 `198.111.121.3`
 子網路遮罩是 `255.255.255.0`  
 route server是 `198.111.121.250`    
   
-### 2. 設定網路卡實體位址
+### 1.4.2 設定網路卡實體位址
 ```
 ip link set address ff:74:77:69:12:ab dev enp7s0
 ```
 
-### 3. 清除網路卡的IP設定
+### 1.4.3 清除網路卡的IP設定
 ```
 ip addr flush dev enp7s0
 ```
 
-4. 設定IP  
+### 1.4.4 設定IP  
 prefix_len = 24 (255.255.255.0 = 8 + 8 + 8 + 0 = 24)
 ```
 ip address add 198.111.121.3/24 broadcast + dev enp7s0
 ```
 
-5. 查看 IPv4 or IPv6 routes
+### 1.4.5 查看 IPv4 or IPv6 routes
 ```
 # IPv4
 ip route show
@@ -136,19 +137,19 @@ ip route show
 ip -6 show
 ```
 
-6. 增加route
+### 1.4.6 增加route
 ```
 ip route add default via 198.111.121.250 dev enp7s0
 ```
 
-7. 再次ping看看
+### 1.4.7 再次ping看看
 ```
 ping -c 3 8.8.8.8
 ```
 正常來説應該沒問題了  
 更多網路詳情可參考 https://wiki.archlinux.org/title/Network_configuration
 
-## 設定 Mirrors Server
+## 1.5 設定 Mirrors Server
 用vim /etc/pacman.conf編輯conf文件將,找到[core] [extra] [community]將交大的arch mirrorlist加入
 ```
 [core]
