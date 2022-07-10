@@ -106,7 +106,7 @@ ip link show
 2: enp7s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
     link/ether XX:XX:XX:XX:XX:XX brd ff:ff:ff:ff:ff:ff permaddr XX:XX:XX:XX:XX:XX
 ```
-所以本機的網路卡為 `enp7s0`
+所以本機的網路卡為 `enp7s0`  
 假設 Mac Address是 `ff:74:77:69:12:ab`  
 IP是 `198.111.121.3`  
 子網路遮罩是 `255.255.255.0`  
