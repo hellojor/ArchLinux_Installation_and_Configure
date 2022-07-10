@@ -14,10 +14,10 @@ lsblk
 ```
 cfdisk /dev/sdX
 ```
-/dev/sda1
-/dev/sda1
-/dev/sda1
-/dev/sda1
+/dev/sda1  
+/dev/sda1  
+/dev/sda1  
+/dev/sda1  
 
 # 系统配置
 
