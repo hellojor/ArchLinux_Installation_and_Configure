@@ -168,7 +168,7 @@ Include = /etc/pacman.d/mirrorlist
 ### 1.5.2 排序鏡像站  
 安裝pacman-contrib腳本，這個腳本可以排序鏡像站
 ```
-pacman -S pacman-contrib
+pacman -Sy pacman-contrib
 ```
 排序"設定檔現有的"鏡像站前6快，並寫入檔案
 ```
@@ -364,7 +364,7 @@ vim /etc/sudoers
 ```
 建立新使用者，並加入 sudo 群組
 ```
-useradd -m -u 1001"your-user-name"
+useradd -m -u 1001 "your-user-name"
 passwd "your-user-name"
 usermod "your-user-name" -G wheel
 ```
@@ -382,19 +382,201 @@ sudo pacman -Su noto-fonts-cjk adobe-source-code-pro-fonts
 ```
 
 # 4 安裝 Window Manager(圖形介面)
+## 4.1 安裝 i3
+```
+sudo pacman -Syyu
+sudo pacman -S i3-gaps i3status rofi compton nitrogen ttf-dejavu
+```
+可以依照以下表格自己玩看看哦~
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Detail</td>
+    <td>Recommended</td>
+  </tr>
+  <tr>
+    <td>ttf-dejavu</td>
+    <td>更好看的字體</td>
+    <td>y</td>
+  </tr>
+  <tr>
+    <td>i3-gaps</td>
+    <td>i3的分支，注重於i3的美化	</td>
+    <td>y</td>
+  </tr>
+  <tr>
+    <td>rofi</td>
+    <td>圖形化的app/command啟動器	</td>
+    <td>y</td>
+  </tr>
+  <tr>
+    <td>compton</td>
+    <td>視窗透明化</td>
+    <td>y</td>
+  </tr>
+  <tr>
+    <td>nitrogen	</td>
+    <td>更方便的桌布設置</td>
+    <td>y</td>
+  </tr>
+  <tr>
+    <td>i3-block</td>
+    <td>更好看的系統狀態列</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>i3status</td>
+    <td>i3的系統狀態列</td>
+    <td></td>
+  </tr>
+</table>
 
+## 4.2 安裝 xorg
+```
+sudo pacman -S xorg xorg-xinit xterm
+```
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Detail</td>
+  </tr>
+   <tr>
+    <td>xorg</td>
+    <td>includes xorg-server but not xorg-xinit</td>
+  </tr>
+   <tr>
+    <td>xorg-server-utils</td>
+    <td>doesn’t exist anymore</td>
+  </tr>
+   <tr>
+    <td>xorg-xinit</td>
+    <td>installs: xorg-xinit, inetutils, includes /etc/X11/xinit/xinitrc</td>
+  </tr>
+   <tr>
+    <td>xorg-apps</td>
+    <td>group, everything in it is already included in xorg</td>
+  </tr>
+   <tr>
+    <td>xterm</td>
+    <td>You will probably want/need this</td>
+  </tr>
+</table>
 
-
-# 系统配置
-
-## 1 系统 DM
-
-
-用 lightDM 作为系统的 display manager。
-
-```shell
-sudo pacman -S lightdm
-sudo systemctl enable lightdm
+## 4.3 安裝 GPU driver
+```
+sudo pacman -S nvidia nvidia-utils    # NVIDIA 
+sudo pacman -S xf86-video-amdgpu mesa   # AMD
+sudo pacman -S xf86-video-intel mesa    # Intel
 ```
 
-##
+## 4.4 安裝音效支援
+```
+sudo pacman -S alsa-utils
+```
+
+## Starting with Xinit (startx)
+更改 /etc/X11/xinit/xinitrc內容為如下所示：
+```
+ .
+ .
+ .
+#twm &
+#xterm....
+#exec xterm ....
+exec i3
+```
+接著開啟Xinit
+ ```
+startx
+```
+進入i3後，可以使用預設的 "super+enter" 來啓動terminal，"super+shift+q" 來關閉terminal  
+super 就是你剛設定的 win or alt鍵  
+如果要查看或修改指令，請到 `~/.config/i3/config`
+
+# 5 系统配置
+
+## 5.1 安裝 LigthDM
+用 lightDM 作为系统的 display manager
+```
+sudo pacman -S lightdm lightdm-gtk-greeter
+systemctl enable lightdm
+reboot
+```
+## 5.2 安装主题及相关配置
+這裏是使用 lightdm-webkit2-theme-glorious 的主題
+```
+git clone https://aur.archlinux.org/lightdm-webkit2-theme-glorious.git
+cd lightdm-webkit2-theme-glorious
+makepkg -sri
+```
+複製light-theme 到 `/usr/share/lightdm-webkit/themes/glorious`
+```
+sudo cp -r lightdm-webkit2-theme-glorious /usr/share/lightdm-webkit/themes/glorious
+```
+
+## 5.3 背景图片
+登录的背景图片位于目录`var/lib/AccountsService/wallpapers`。注意在命令行使用`lightdm-webkit2-greeter`，进入`Setting`，选择`background engine`为`image`。(见`lightdm-webkit2-greeter.conf`文件)。注意文件的权限。
+
+# 5.4 登录头像
+用户头像的目录位于`/var/lib/AccountsService/icons`。注意在`/var/lib/AccountsService/users`新建文件$USER，输入以下内容：
+```
+[User]
+Icon=/var/lib/AccountsService/icons/myicon.jpg
+```
+
+# 5.5 lightDM 设置
+编辑文件`/etc/lightdm/lightdm.conf`,设置`greeter-session=lightdm-webkit2-greeter`
+```
+.
+.
+.
+# Seat configuration
+.
+.
+[SeatDefaults]
+greeter-session=lightdm-webkit2-greeter
+.
+.
+[Seat:*]
+```
+
+# 5.6 双显示器问题
+可能存在双显示问题，自写脚本解决。在`/etc/lightdm.conf`，设置`display-setup-script=/usr/bin/lightDMScript.sh`。
+```
+#!bin/bash
+xrandr | grep "HDMI-1 disconnected"
+result=$?
+if [ $result -gt 0 ]
+then
+    xrandr --output eDP-1 --off --output HDMI-1 --primary --mode 2560x1440     --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-2 --off
+else
+    xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-1 --off --output HDMI-2 --off
+fi
+```
+
+## 5.7 总体配置
+修改 /etc/lightdm/lightdm-webkit-greeter.conf
+```
+[greeter]
+debug_mode          = true
+detect_theme_errors = true
+screensaver_timeout = 300
+secure_mode         = true
+time_format         = LT
+time_language       = auto
+webkit_theme        = material
+
+[branding]
+background_images = /var/lib/AccountsService/wallpapers
+logo              = /usr/share/pixmaps/archlinux-logo.svg
+user_image        = /var/lib/AccountsService/icons/myicon.jpg
+```
+
+## 雙熒幕
+## 雙系統arch + window 10
+
+# 參考資料
+https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
+https://hackmd.io/l5TcrZZmSbeLsFdwEQ84AQ
+https://github.com/shejialuo/OS-Configuration/tree/master/ArchLinux-i3/system_config
+https://github.com/manilarome/lightdm-webkit2-theme-glorious
