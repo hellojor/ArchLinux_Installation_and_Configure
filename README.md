@@ -571,8 +571,145 @@ background_images = /var/lib/AccountsService/wallpapers
 logo              = /usr/share/pixmaps/archlinux-logo.svg
 user_image        = /var/lib/AccountsService/icons/myicon.jpg
 ```
+# 6 雙系統 arch + window 10 啓動
+## 6.1 讓os-prober 可以偵測其他boot
+```
+sudo vim /etc/default/grub
+uncomment GRUB_DISABLE_OS_PROBER=false
+```
+## 6.2 掛載 Windows
+假設`windows10`系統被安裝在`sdb`裏面，而且`sdb1`是它的boot  
+可使用`lsblk`來確認
+```
+mkdir /mnt/windows10
+mount /dev/sdb1 /mnt/windows10
+```
+## 6.3 偵測 Windows
+```
+os-prober
+```
 
-## 雙熒幕
+## 6.4 產生 grub 設定檔
+```
+grub-mkconfig -o /boot/grub/grub.cfg
+reboot
+```
+在啓動界面就可以看到一個 `Windows Boot Manager (on /dev/sdb1)`, 點擊他就可以進入windows咯~~  
+
+# 7 安裝第三方軟體以及一些基本設定
+透過以下的套件我們可以安裝第三方軟體, ex: google-chrome  
+`yay與paru較為方便，paru安裝時間較久。`  
+如果在安裝過程，系統說你的權限不足，可是又不能使用`sudo makepkg -si`
+```
+# 先把該檔案的root變成自己的
+# me是你的username
+chown -R me /home/me/yay
+```
+然後在進行`makepkg`的動作，應該就沒問題了
+
+## 7.1 AUR
+```
+git clone https://aur.archlinux.org/aurman.git
+cd aurman
+makepkg -si
+```
+
+## 7.2 yay
+```
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+## 7.3 paru
+```
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+```
+
+## 7.4 snap
+```
+git clone https://aur.archlinux.org/snapd.git
+cd snapd
+makepkg -si
+```
+Enable snap
+```
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+```
+Start snap
+```
+sudo systemctl start --now snapd.socket
+```
+
+## 7.5 檔案總管 Thunar
+```
+sudo pacman -S thunar thunar-volman
+```
+
+## 7.6 中文輸入法 fctix
+有遇過chrome裝好後無法切換使用新酷音，但在其他編輯器及瀏覽器都可以使用情形，這時候可以用fcitx-diagnose看一下是哪邊沒裝好~  
+  
+fcitx-chewing:新酷音  
+fcitx-googlepinyin:google拼音  
+```
+sudo pacman -S fcitx-configtool fcitx-chewing fcitx-googlepinyin　kcm-fcitx
+```
+安裝好後記得在~/.xprofile 新增以下變數, 如果沒有此檔案請要自行建立，
+```
+input=fcitx
+export XMODIFIERS=@im=fcitx
+export LC_CTYPE=zh_TW.UTF-8
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+$input&
+```
+改好後就重啓
+```
+reboot
+```
+可使用`ctrl+space`來切換英\中  
+預設是注音，如果要使用拼音，可以使用`fcitx-configtool`的指令來進行設定  
+切換的按鍵也可在`fcitx-configtool`進行設定  
+可使用`ctrl+shift+f`來進行繁體字與簡體字的切換  
+
+# 7 系统主题设置
+在安裝系統主題之前，我們先安裝
+## 7.1 安装 GTK2、GTK3 主题管理器：lxappearance。
+```
+sudo pacman -S lxappearance
+```
+## 7.2 GTK 主题选择
+选择material主题：
+
+sudo pacman -S materia-gtk-theme
+## 7.3 Icon 主题选择
+选择papirus-icon-theme：
+
+sudo pacman -S papirus-icon-theme
+## 7.4 QT 主题
+QT 主题与 GTK 主题相统一。首先安装 QT 主题管理器：
+
+sudo pacman -S qt5ct
+其次通过yay安装插件：
+
+yay -S qt5-styleplugins
+在~/.xprofile中添加语句：
+
+export QT_QPA_PLATFORMTHEME=gtk2
+打开qt5ct，将 QT 主题设置为 gtk2。
+
+## 暫時關閉蜂鳴器(需要權限)
+```
+rmmod pcspkr
+```
+
+
+## terminal
+## bash
 ## 雙系統arch + window 10
 
 # 參考資料
@@ -580,3 +717,6 @@ https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
 https://hackmd.io/l5TcrZZmSbeLsFdwEQ84AQ
 https://github.com/shejialuo/OS-Configuration/tree/master/ArchLinux-i3/system_config
 https://github.com/manilarome/lightdm-webkit2-theme-glorious
+https://wusyong.github.io/posts/arch-dual-boot/
+https://forum.endeavouros.com/t/warning-os-prober-will-not-be-executed-to-detect-other-bootable-partitions-systems-on-them-will-not-be-added-to-the-grub-boot-configuration-check-grub-disable-os-prober-documentation-entry/13998
+https://www.reddit.com/r/archlinux/comments/97odv3/error_when_trying_to_install_an_aur_helper/
