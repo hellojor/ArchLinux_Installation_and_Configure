@@ -676,7 +676,123 @@ reboot
 切換的按鍵也可在`fcitx-configtool`進行設定  
 可使用`ctrl+shift+f`來進行繁體字與簡體字的切換  
 
-# 7 系统主题设置
+# 8 terminal與bash的設定與美華
+## 8.1 terminal(rxvt)
+```
+yay -S rxvt rxvt-unicode
+```
+在`.Xdefault`進行`rxvt`設定  
+```
+vim ~/.Xdefault
+```
+可以參考以下設定  
+```
+!# lefthaha s ~/.Xdefaults
+!# after modified, use ` xrdb -merage ~/.Xdefaults ` to reload setting
+!# then launch `urxvt` again to test
+
+!# turn compile xft on
+!#(copy from arch wiki,may increase performance)
+!#URxvt.buffered: true
+
+!# set colors
+URxvt.background: #0a0a0a
+URxvt.foreground: white
+URxvt.cursorColor: green
+!#URxvt.underlineColor: green
+
+!# set transparency
+URxvt.transparent: on
+URxvt.shading: 20
+
+!# set fonts
+!#URxvt.font: 		xft:SourceCodePro:style=Regular:size=14
+URxvt.font:xft:MesloLGS NF:regular:size=12
+!#URxvt.boldfont:	xtf:Meslo LG S DZ for Powerline:bold:size=12
+!#URxvt.italicFont:	xtf:Meslo LG S DZ for Powerline:Italic:size=12
+!#URxvt.boldItalicFont:
+URxvt.letterSpace: -1
+
+!# set input method
+!#URxvt.inputMethod: gcin
+URxvt.preeditType: Root
+URxvt.imLocale: zh_TW.UTF-8
+
+!# extern common
+URxvt.perl-ext-common: default,clipboard,resize-font,matcher
+!## copy, resize, url
+!# set clickable URLs
+URxvt.urlLauncher     : /usr/bin/xdg-open
+URxvt.matcher.button  : 1
+URxvt.matcher.rend.0: Uline Bold fg5
+URxvt.colorUL: #4682B4
+
+!# set window size
+!#URxvt.geometry: 86x28
+
+!# set misc
+URxvt.scrollBar: False
+!#URxvt.jumpScroll: True
+!#URxvt.cursorUnderline: True
+!#URxvt.cursorBlink: True
+
+!# my config
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+!## scrollbak position
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+!## scrollbak buffer
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+!## cut and paste
+URxvt.clipboard.autocopy: true
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+
+!## disable printing the therminal contents when pressing printscreen
+URxvt.print-pipe: "cat > /dev/null"
+
+! Tango color palette
+URxvt*background:         #2e3436
+URxvt*foreground:         #eeeeec
+URxvt*cursorColor:        #8ae234
+! foreground color for underline
+URxvt*colorUL:            #8ae234
+! line color for underline
+URxvt*underlineColor:     #92659a
+! black dark/light
+URxvt*color0:             #2e3436
+URxvt*color8:             #6e706b
+! red dark/light
+URxvt*color1:             #cc0000
+URxvt*color9:             #ef2929
+! green dark/light
+URxvt*color2:             #4e9a06
+URxvt*color10:            #8ae234
+! yellow dark/light
+URxvt*color3:             #edd400
+URxvt*color11:            #fce94f
+! blue dark/light
+URxvt*color4:             #3465a4
+URxvt*color12:            #729fcf
+! magenta dark/light
+URxvt*color5:             #92659a
+URxvt*color13:            #c19fbe
+! cyan dark/light
+URxvt*color6:             #07c7ca
+URxvt*color14:            #63e9e9
+! white dark/light
+URxvt*color7:             #d3d7cf
+URxvt*color15:            #eeeeec
+```
+
+
+# 7 系統主题设置
 在安裝系統主題之前，我們先安裝
 ## 7.1 安装 GTK2、GTK3 主题管理器：lxappearance。
 ```
@@ -713,10 +829,10 @@ rmmod pcspkr
 ## 雙系統arch + window 10
 
 # 參考資料
-https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
-https://hackmd.io/l5TcrZZmSbeLsFdwEQ84AQ
-https://github.com/shejialuo/OS-Configuration/tree/master/ArchLinux-i3/system_config
-https://github.com/manilarome/lightdm-webkit2-theme-glorious
-https://wusyong.github.io/posts/arch-dual-boot/
-https://forum.endeavouros.com/t/warning-os-prober-will-not-be-executed-to-detect-other-bootable-partitions-systems-on-them-will-not-be-added-to-the-grub-boot-configuration-check-grub-disable-os-prober-documentation-entry/13998
-https://www.reddit.com/r/archlinux/comments/97odv3/error_when_trying_to_install_an_aur_helper/
+* https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
+* https://hackmd.io/l5TcrZZmSbeLsFdwEQ84AQ
+* https://github.com/shejialuo/OS-Configuration/tree/master/ArchLinux-i3/system_config
+* https://github.com/manilarome/lightdm-webkit2-theme-glorious
+* https://wusyong.github.io/posts/arch-dual-boot/
+* https://forum.endeavouros.com/t/warning-os-prober-will-not-be-executed-to-detect-other-bootable-partitions-systems-on-them-will-not-be-added-to-the-grub-boot-configuration-check-grub-disable-os-prober-documentation-entry/13998
+* https://www.reddit.com/r/archlinux/comments/97odv3/error_when_trying_to_install_an_aur_helper/
