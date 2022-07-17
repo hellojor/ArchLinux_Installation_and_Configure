@@ -517,14 +517,14 @@ sudo cp -r lightdm-webkit2-theme-glorious /usr/share/lightdm-webkit/themes/glori
 ## 5.3 背景图片
 登录的背景图片位于目录`var/lib/AccountsService/wallpapers`。注意在命令行使用`lightdm-webkit2-greeter`，进入`Setting`，选择`background engine`为`image`。(见`lightdm-webkit2-greeter.conf`文件)。注意文件的权限。
 
-# 5.4 登录头像
+## 5.4 登录头像
 用户头像的目录位于`/var/lib/AccountsService/icons`。注意在`/var/lib/AccountsService/users`新建文件$USER，输入以下内容：
 ```
 [User]
 Icon=/var/lib/AccountsService/icons/myicon.jpg
 ```
 
-# 5.5 lightDM 设置
+## 5.5 lightDM 设置
 编辑文件`/etc/lightdm/lightdm.conf`,设置`greeter-session=lightdm-webkit2-greeter`
 ```
 .
@@ -539,8 +539,14 @@ greeter-session=lightdm-webkit2-greeter
 .
 [Seat:*]
 ```
+## 5.6 Dual monitor
 
-# 5.6 双显示器问题
+```
+xrandr --output
+```
+
+
+## 5.7 双显示器问题
 可能存在双显示问题，自写脚本解决。在`/etc/lightdm.conf`，设置`display-setup-script=/usr/bin/lightDMScript.sh`。
 ```
 #!bin/bash
@@ -554,7 +560,7 @@ else
 fi
 ```
 
-## 5.7 总体配置
+## 5.8 总体配置
 修改 /etc/lightdm/lightdm-webkit-greeter.conf
 ```
 [greeter]
@@ -564,7 +570,7 @@ screensaver_timeout = 300
 secure_mode         = true
 time_format         = LT
 time_language       = auto
-webkit_theme        = material
+webkit_theme        = glorious
 
 [branding]
 background_images = /var/lib/AccountsService/wallpapers
@@ -675,6 +681,12 @@ reboot
 預設是注音，如果要使用拼音，可以使用`fcitx-configtool`的指令來進行設定  
 切換的按鍵也可在`fcitx-configtool`進行設定  
 可使用`ctrl+shift+f`來進行繁體字與簡體字的切換  
+
+## 7.7 google-chrome
+```
+yay -S google-chrome
+```
+
 
 # 8 terminal與bash的設定與美華
 ## 8.1 terminal(rxvt)
