@@ -609,6 +609,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
 reboot
 ```
 在啓動界面就可以看到一個 `Windows Boot Manager (on /dev/sdb1)`, 點擊他就可以進入windows咯~~  
+如果覺得開機選單時間太短  
+```
+vim /boot/grub/grub.cfg
+```
+收尋`set timeout=5` 把時間(5)更改成你想要的時間，如`set timeout=30`
+
 
 # 7 安裝第三方軟體以及一些基本設定
 透過以下的套件我們可以安裝第三方軟體, ex: google-chrome  
@@ -645,7 +651,6 @@ makepkg -si
 
 ## 7.4 snap
 ```
-git clone https://aur.archlinux.org/snapd.git
 cd snapd
 makepkg -si
 ```
