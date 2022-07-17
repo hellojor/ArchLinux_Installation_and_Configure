@@ -539,12 +539,18 @@ greeter-session=lightdm-webkit2-greeter
 .
 [Seat:*]
 ```
-## 5.6 Dual monitor
-
+## 5.6 設定雙熒幕
+可使用以下指令來檢查monitor  
 ```
-xrandr --output
+xrandr -q
 ```
-
+假設設備是 `HDMI-1` 和 `DP-2`  
+```
+xrandr --output HDMI-1 --auto --output DP-2 --auto --right-of HDMI-1
+```
+以上設定是 `HDMI-1` 在左邊，`DP-2` 在右邊  
+`--auto` 是自動選擇解析圖  
+可以使用 `--mode 1920x1080` 這樣來設定解析度  
 
 ## 5.7 双显示器问题
 可能存在双显示问题，自写脚本解决。在`/etc/lightdm.conf`，设置`display-setup-script=/usr/bin/lightDMScript.sh`。
@@ -577,6 +583,8 @@ background_images = /var/lib/AccountsService/wallpapers
 logo              = /usr/share/pixmaps/archlinux-logo.svg
 user_image        = /var/lib/AccountsService/icons/myicon.jpg
 ```
+
+
 # 6 雙系統 arch + window 10 啓動
 ## 6.1 讓os-prober 可以偵測其他boot
 ```
