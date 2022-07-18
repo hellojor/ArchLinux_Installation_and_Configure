@@ -584,6 +584,51 @@ logo              = /usr/share/pixmaps/archlinux-logo.svg
 user_image        = /var/lib/AccountsService/icons/myicon.jpg
 ```
 
+## 5.9 背景設定
+先安裝 `feh`
+```
+sudo pacman -S feh
+```
+假設你的圖片路徑爲`~/Documents/bg.jpg`  
+到 `~/.config/i3/config` 並加入以下這一行  
+```
+feh --bg-fill ~/Documents/bg.jpg
+```
+
+## 5.10 polybar設定
+```
+git clone https://aur.archlinux.org/polybar.git
+cd polybar
+makepkg -si
+cp -R /etc/polybar ~/.config/polybar
+vim ~/.config/polybar/config.ini
+```
+到 `[bar/example]` 下面增加一行字  
+```
+.
+.
+[bar/example]
+monitor = ${env:MONITOR:}
+.
+.
+```
+然後使用`vim ~/.config/polybar/launch.sh`創建`launch.sh`，來進行設定  
+```
+# launch.sh 內容
+
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload example &
+  done
+else
+  polybar --reload example &
+fi
+```
+而後再到`~/.config/i3/config`增加  
+```
+exec sh ~/.config/polybar/launch.sh
+```
+
 
 # 6 雙系統 arch + window 10 啓動
 ## 6.1 讓os-prober 可以偵測其他boot
@@ -861,3 +906,5 @@ rmmod pcspkr
 * https://wusyong.github.io/posts/arch-dual-boot/
 * https://forum.endeavouros.com/t/warning-os-prober-will-not-be-executed-to-detect-other-bootable-partitions-systems-on-them-will-not-be-added-to-the-grub-boot-configuration-check-grub-disable-os-prober-documentation-entry/13998
 * https://www.reddit.com/r/archlinux/comments/97odv3/error_when_trying_to_install_an_aur_helper/
+* https://github.com/polybar/polybar/wiki
+* https://github.com/polybar/polybar/issues/763
