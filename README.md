@@ -514,7 +514,20 @@ makepkg -sri
 sudo cp -r lightdm-webkit2-theme-glorious /usr/share/lightdm-webkit/themes/glorious
 ```
 
-## 5.3 背景图片
+## 5.3.1 下載 google-chrome 來獲取圖片
+先下載`yay`以方便下載`google-chrome`  
+```
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+下載`google-chrome`  
+```
+yay -S google-chrome
+```
+使用`google-chrome-stable`來啓動 chrome    
+
+## 5.3.2 主題背景图片
 登录的背景图片位于目录`var/lib/AccountsService/wallpapers`。注意在命令行使用`lightdm-webkit2-greeter`，进入`Setting`，选择`background engine`为`image`。(见`lightdm-webkit2-greeter.conf`文件)。注意文件的权限。
 
 ## 5.4 登录头像
@@ -740,7 +753,7 @@ reboot
 切換的按鍵也可在`fcitx-configtool`進行設定  
 可使用`ctrl+shift+f`來進行繁體字與簡體字的切換  
 
-## 7.7 google-chrome
+## 7.7 下載`google-chrome`  
 ```
 yay -S google-chrome
 ```
