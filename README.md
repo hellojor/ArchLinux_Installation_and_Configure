@@ -790,7 +790,8 @@ URxvt.shading: 20
 
 !# set fonts
 !#URxvt.font: 		xft:SourceCodePro:style=Regular:size=14
-URxvt.font:xft:MesloLGS NF:regular:size=12
+!#URxvt.font:xft:MesloLGS NF:regular:size=12
+URxvt.font: xft:MesloLGS NF:size=12
 !#URxvt.boldfont:	xtf:Meslo LG S DZ for Powerline:bold:size=12
 !#URxvt.italicFont:	xtf:Meslo LG S DZ for Powerline:Italic:size=12
 !#URxvt.boldItalicFont:
@@ -873,6 +874,7 @@ URxvt*color14:            #63e9e9
 URxvt*color7:             #d3d7cf
 URxvt*color15:            #eeeeec
 ```
+使用`xrdb -merge ~/.Xdefault`來更新`rxvt`的設定  
 
 
 # 7 系統主题设置
