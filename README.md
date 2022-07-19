@@ -916,43 +916,24 @@ ys 這個主題目前是我最喜歡的，如果想查看更多其它的主題�
 2. 添加 `neofetch` 
 事實上，作用不大，只是爲了耍帥一下XD  
 
-# 9 系統主题设置
-在安裝系統主題之前，我們先安裝
-## 9.1 安装 GTK2、GTK3 主题管理器：lxappearance。
-```
-sudo pacman -S lxappearance
-```
-## 9.2 GTK 主题选择
-选择materia主题：
-```
-sudo pacman -S materia-gtk-theme
-```
-
-## 9.3 Icon 主题选择
-选择papirus-icon-theme：  
-```
-sudo pacman -S papirus-icon-theme
-```
-
-## 9.4 QT 主题
-QT 主题与 GTK 主题相统一。首先安装 QT 主题管理器：  
-```
-sudo pacman -S qt5ct
-```
-其次通过yay安装插件：  
-```
-yay -S qt5-styleplugins
-```
-在`~/.xprofile`中添加语句：
-```
-export QT_QPA_PLATFORMTHEME=gtk2
-```
-打开`qt5ct`，将 QT 主题设置为`gtk2`。
-
-## 暫時關閉蜂鳴器(需要權限)
+# 9 其他可能會用到的東東
+## 9.1 暫時關閉蜂鳴器(需要權限)
 ```
 rmmod pcspkr
 ```
+## 9.2 5 混成器安装
+利用`picom`实现透明化及毛玻璃等特效  
+```
+sudo pacman -S picom
+```
+此部分见配置文件picom.conf，并在 i3 配置文件中设置自启  
+新增到`~/.config/i3/config`  
+```
+
+```
+
+## 9.2 htop
+
 
 
 ## terminal
