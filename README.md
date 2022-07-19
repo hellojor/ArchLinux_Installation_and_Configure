@@ -943,6 +943,60 @@ dunst 配置
 配置文件位于`~/.config/dunst/dunstrc`  
 在 i3 中配置`dunstctl action`用来跳转通知（即时通讯软件）。
 
+## 9.5 ranger
+### 9.5.1 主程序安装  
+```
+sudo pacman -S ranger
+```
+啓動`ranger`來玩看看吧 
+### 9.5.2 设置为默认文件浏览器
+由于原始的`ranger.desktop`文件中存在`Terminal=true`，所以修改为由终端模拟器执行`ranger`  
+```
+cp /usr/share/applications/ranger.desktop ~/.local/share/applications/ranger.desktop
+vim ~/.local/share/applications/ranger.desktop
+```
+改变为以下的值  
+```
+Terminal=false
+Exec=Exec=alacritty -e ranger
+```
+在mimeapps.list添加ranger.desktop，并更新数据库  
+```
+update-desktop-database ~/.local/share/applications
+```
+
+## 9.6 回收站
+```
+sudo pacman -S trash-cli
+```
+回收站位于`~/.local/share/Trash`  
+更多可參考 https://github.com/andreafrancia/trash-cli  
+
+## 9.7 磁盘清理工具
+```
+sudo pacman -S ncdu
+```
+
+## 9.8 系统状态监视
+```
+sudo pacman -S conky
+```
+
+## 9.9 VsCode
+`archlinux`不再提供`visual-studio-code-bin`的二进制包，只能手动编译了  
+```
+yay -S visual-studio-code-bin
+```
+现在`VsCode`自带同步功能，双系统很方便，直接同步  
+
+## 9.10 office
+安装 wps office：
+```
+yay -S wps-office
+yay -S ttf-wps-fonts
+```
+
+
 
 # 參考資料
 * https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
@@ -955,3 +1009,4 @@ dunst 配置
 * https://github.com/polybar/polybar/wiki
 * https://github.com/polybar/polybar/issues/763
 * https://ankmak.com/tech/arch/oh-my-zsh.html
+* https://github.com/andreafrancia/trash-cli
