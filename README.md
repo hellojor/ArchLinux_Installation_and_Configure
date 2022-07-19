@@ -875,7 +875,44 @@ URxvt*color7:             #d3d7cf
 URxvt*color15:            #eeeeec
 ```
 使用`xrdb -merge ~/.Xdefault`來更新`rxvt`的設定  
+並使用`urxvt`來啓動  
+如果設定都沒問題，那麼要在開機時要重新進行設定  
+到`~/.config/i3/config`進行修改和新增  
+```
+# 修改 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal
+# 新增 
+exec xrdb -merge ~/.Xdefault
+```
 
+## 8.2 shell (oh-my-zsh)
+```
+yay -S zsh 
+yay -S neofetch
+```
+PowerLevel10k  
+* Terminal: urxvt (~/.Xdefaults)
+* Shell: zsh (~/.zshrc)
+## 8.2.1 透過 curl 來讀取已經配置好的設定  
+```
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+## 8.2.2 更換主題
+1. 編輯 `~/.zshrc`  
+2. 把 `ZSH_THEME="robbyrussell"` 改成 `ZSH_THEME＝"ys"`  
+ys 這個主題目前是我最喜歡的，如果想查看更多其它的主題，可查看 `~/.oh-my-zsh/themes/` 目錄  
+
+## 8.2.3 添加 plug-in
+比如要把 sudo 加入 plug-in  
+1. 編輯 `~/.zshrc`  
+2. 把原本 `plugins=(git)` 改成 `plugins=(git sudo)`  
+說一下 `sudo` 這個 plug-in ，它的功能很簡單，只要連按兩次 `esc` 鍵，便會自動在指令最前方加上 `sudo`，使用起來十分方便。  
+
+## 8.2.3 啓動 zsh 時顯示 neofetch
+1. 編輯 `~/.zshrc`  
+2. 添加 `neofetch` 
+事實上，作用不大，只是爲了耍帥一下XD
 
 # 7 系統主题设置
 在安裝系統主題之前，我們先安裝
@@ -923,3 +960,4 @@ rmmod pcspkr
 * https://www.reddit.com/r/archlinux/comments/97odv3/error_when_trying_to_install_an_aur_helper/
 * https://github.com/polybar/polybar/wiki
 * https://github.com/polybar/polybar/issues/763
+* https://ankmak.com/tech/arch/oh-my-zsh.html
