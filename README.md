@@ -884,6 +884,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # 新增 
 exec xrdb -merge ~/.Xdefault
 ```
+如果在使用`rxvt`時發現在`vim`無法使用copy&paste別緊張  
+請在其他程序中(chrome、word...)使用`shift+鼠标左键`进行选择，並使用`shift+insert`到vim的文件下進行粘帖！！   
 
 ## 8.2 shell (oh-my-zsh)
 ```
