@@ -1014,6 +1014,13 @@ sudo ip route del default dev ppp0
 sudo poff tunnel_name
 ```
 
+## 9.12 遠端登入
+由於有時需要使用到這類的 ssh 遠端登入  
+在 windows 我都使用`MobaXterm`  
+但是 linux 好像沒有`MobaXterm`，所以我就使用`electerm`  
+```
+yay -S --noconfirm electerm-bin
+```
 
 # 參考資料
 * https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
