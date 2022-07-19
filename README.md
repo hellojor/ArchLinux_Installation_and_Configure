@@ -996,6 +996,23 @@ yay -S wps-office
 yay -S ttf-wps-fonts
 ```
 
+## 9.11 pptpclient
+由於我所處於的實驗室是使用`PPTP`的方式來進行VPN  
+所以在這裏跟大家分享連接`PPTP`的方法
+```
+sudo pacman -S pptpclient
+pptpsetup –create tunnel_name –server vpn.example.com –usrname alice –password pd –encrypt
+```
+Connect的方法  
+```
+sudo pon tunnel_name
+sudo ip route add default dev ppp0
+```
+Disconnect的方法  
+```
+sudo ip route del default dev ppp0
+sudo poff tunnel_name
+```
 
 
 # 參考資料
@@ -1010,3 +1027,4 @@ yay -S ttf-wps-fonts
 * https://github.com/polybar/polybar/issues/763
 * https://ankmak.com/tech/arch/oh-my-zsh.html
 * https://github.com/andreafrancia/trash-cli
+* http://liubin.name/post/vpn_pptp_in_archlinux/
