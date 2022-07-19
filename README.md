@@ -921,24 +921,28 @@ ys 這個主題目前是我最喜歡的，如果想查看更多其它的主題�
 ```
 rmmod pcspkr
 ```
-## 9.2 5 混成器安装
+## 9.2混成器安装
 利用`picom`实现透明化及毛玻璃等特效  
 ```
 sudo pacman -S picom
 ```
 此部分见配置文件picom.conf，并在 i3 配置文件中设置自启  
-新增到`~/.config/i3/config`  
+
+## 9.3 系統監控與進程管理軟件
+htop是一個進階的系統監控與進程管理軟件  
+```
+sudo pacman -S htop
 ```
 
+## 9.4 通知管理
+安装dunst，作为通知管理的守护进程  
 ```
+sudo pacman -S dunst
+```
+dunst 配置
+配置文件位于`~/.config/dunst/dunstrc`  
+在 i3 中配置`dunstctl action`用来跳转通知（即时通讯软件）。
 
-## 9.2 htop
-
-
-
-## terminal
-## bash
-## 雙系統arch + window 10
 
 # 參考資料
 * https://hackmd.io/Wi2N2PaEReOgQ8SQJVOaFQ
