@@ -932,7 +932,7 @@ p10k configure
 ```
 Change Shell
 ```
-chsh -s /bin/bash
+sudo chsh -s $(which zsh) $(whoami)
 ```
 ## 8.2.5 啓動 zsh 時顯示 neofetch
 1. 編輯 `~/.zshrc`  
