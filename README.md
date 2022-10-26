@@ -911,7 +911,30 @@ ys 這個主題目前是我最喜歡的，如果想查看更多其它的主題�
 2. 把原本 `plugins=(git)` 改成 `plugins=(git sudo)`  
 說一下 `sudo` 這個 plug-in ，它的功能很簡單，只要連按兩次 `esc` 鍵，便會自動在指令最前方加上 `sudo`，使用起來十分方便。  
 
-## 8.2.3 啓動 zsh 時顯示 neofetch
+
+## 8.2.4 安裝字型
+```
+#Font
+yay -S ttf-meslo-nerd-font-powerlevel10k
+#powerlevel10k theme
+yay -S --noconfirm zsh-theme-powerlevel10k-git
+echo 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+```
+設定終端機的字型
+```
+urxvt: Create or open ~/.Xresources and add the following line to it:
+URxvt.font: xft:MesloLGS NF:size=12
+```
+設定Powerlevel10k
+```
+zsh
+p10k configure
+```
+Change Shell
+```
+chsh -s /bin/bash
+```
+## 8.2.5 啓動 zsh 時顯示 neofetch
 1. 編輯 `~/.zshrc`  
 2. 添加 `neofetch` 
 事實上，作用不大，只是爲了耍帥一下XD  
